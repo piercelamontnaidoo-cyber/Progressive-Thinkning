@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Progressive Thinking – all-in-one workspace for remote teams and IT support</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#080f1b;--panel:#0e1829;--panel2:#142238;--ink:#e9eff7;--mute:#8fa2ba;--line:#203350;--az:#329DD2;--ver:#FF4C2B;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.55 Inter,system-ui,sans-serif;min-height:100vh}
+h1,h2,h3,h4{margin:0;font-weight:700;line-height:1.1;letter-spacing:-.02em}
+em{font-style:normal;color:var(--ver)}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer;border:0;border-radius:8px;padding:.6rem 1.1rem;background:var(--az);color:var(--bg);font-weight:600;transition:transform .15s,background .15s}
+button:hover{background:#4eb0e0;transform:translateY(-1px)}button:active{transform:scale(.98)}
+button.alt{background:transparent;border:1px solid var(--line);color:var(--ink)}button.alt:hover{border-color:var(--az);background:var(--panel2)}
+button.ver{background:var(--ver);color:var(--bg)}button.ver:hover{background:#ff6446}
+button:disabled{opacity:.4;cursor:not-allowed;transform:none}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible,.fc:focus-visible{outline:3px solid var(--ver);outline-offset:2px}
+input,select{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:.6rem .8rem;width:100%;transition:border-color .15s}
+input:focus,select:focus{border-color:var(--az)}
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:-1}
+/* landing */
+.bar{position:fixed;top:0;left:0;height:3px;width:calc(var(--sp,0)*100%);background:var(--ver);z-index:30}
+.top{position:fixed;inset:0 0 auto;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:calc(.8rem + env(safe-area-inset-top,0px)) 6vw .8rem;background:rgba(8,15,27,.9);border-bottom:1px solid var(--line)}
+.logo{font-weight:700;letter-spacing:-.01em}.logo:before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--ver);margin-right:.6rem}
+.top a{background:var(--ver);color:var(--bg);font-weight:600;border-radius:8px;padding:.5rem 1rem;text-decoration:none}
+#hero{height:520vh}
+.stage{position:sticky;top:0;height:100vh;display:grid;grid-template-columns:1fr 1.1fr;align-items:center;gap:2rem;padding:3rem 6vw 0;perspective:1400px;overflow:hidden}
+.eyebrow{color:var(--az);font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:.8rem;margin-bottom:1rem}
+.copy{transition:opacity .25s,transform .25s}.copy.sw{opacity:0;transform:translateY(12px)}
+.copy h1{font-size:clamp(2.6rem,6.2vw,5rem);margin-bottom:1.1rem}
+.copy p{color:var(--mute);font-size:1.2rem;max-width:34ch;margin:0}
+.hint{position:absolute;bottom:1.5rem;left:6vw;color:var(--mute);font-size:.9rem;opacity:calc(1 - var(--p,0)*12)}
+.scene{--sx:175px;position:relative;height:60vh;transform-style:preserve-3d;transform:rotateX(calc(62deg - var(--p,0)*52deg + var(--my,0)*-6deg)) rotateY(calc(-34deg + var(--p,0)*70deg + var(--mx,0)*8deg)) rotateZ(calc(var(--p,0)*-8deg))}
+.pn{position:absolute;left:50%;top:50%;width:min(300px,56vw);height:190px;margin:-95px 0 0 -150px;border-radius:12px;border:1px solid var(--line);border-top:4px solid var(--az);background:var(--panel);padding:14px;box-shadow:0 24px 40px rgba(0,0,0,.5);transition:border-color .3s;transform:translate3d(calc((var(--i) - 2)*var(--p,0)*var(--sx)),calc((var(--i) - 2)*var(--p,0)*-30px),calc(var(--i)*70px - 140px + var(--p,0)*(var(--i) - 2)*90px))}
+.pn.on{border-top-color:var(--ver)}
+.pn h4{margin:0 0 .6rem;font-size:.85rem;color:var(--mute);letter-spacing:.06em;text-transform:uppercase}.pn i{display:block}
+.b{height:20px;width:70%;border-radius:10px;background:var(--panel2);margin:.4rem 0}.b.r{margin-left:auto;background:var(--az);width:55%}
+.g{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.s{height:44px;border-radius:6px;background:var(--az)}.s:nth-child(3n){background:var(--ver)}.s:nth-child(2n){background:var(--panel2)}
+.f{height:16px;border-radius:6px;background:var(--panel2);margin:.55rem 0}
+.vid{height:110px;border-radius:8px;background:var(--panel2);position:relative}.vid:after{content:"";position:absolute;right:10px;top:10px;width:10px;height:10px;border-radius:50%;background:var(--ver)}
+.wrap{max-width:1080px;margin:0 auto;padding:6rem 6vw}.wrap h2{font-size:clamp(2rem,4.5vw,3.2rem);margin-bottom:2.2rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem;perspective:1000px}
+.rv{opacity:0;transform:translateY(40px) rotateX(14deg);transition:opacity .7s,transform .7s}.rv.in{opacity:1;transform:none}
+.fc{perspective:900px;height:210px;cursor:pointer}.fi{position:relative;height:100%;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.fc:hover .fi,.fc:focus-visible .fi,.fc.flip .fi{transform:rotateY(180deg)}
+.fr,.bk{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:12px;padding:1.4rem;border:1px solid var(--line);background:var(--panel);display:flex;flex-direction:column;justify-content:flex-end;gap:.3rem}
+.fr{border-top:4px solid var(--az)}.fr p,.bk p{margin:0}.fr p{color:var(--mute)}
+.bk{transform:rotateY(180deg);background:var(--az);color:var(--bg);justify-content:center;font-weight:500;border-color:var(--az)}
+.tl{position:relative;padding-left:2.6rem;max-width:720px;--tl:0}
+.tl:before,.tl:after{content:"";position:absolute;left:8px;top:6px;width:3px;bottom:0}.tl:before{background:var(--line)}.tl:after{background:var(--ver);bottom:auto;height:calc(var(--tl)*100%)}
+.ti{position:relative;padding-bottom:2.4rem}.ti:last-child{padding-bottom:0}
+.ti:before{content:"";position:absolute;left:-2.6rem;top:.3rem;width:19px;height:19px;border-radius:50%;background:var(--bg);border:3px solid var(--line);transition:background .3s,border-color .3s}
+.ti.in:before{background:var(--ver);border-color:var(--ver)}.ti h3{font-size:1.5rem;margin-bottom:.3rem}.ti p{margin:0;color:var(--mute);max-width:44ch}
+/* join */
+#login{max-width:980px;margin:0 auto;padding:5rem 6vw 6rem;display:grid;gap:2.5rem;grid-template-columns:1.2fr 1fr;align-items:center}
+#login h2{font-size:clamp(2rem,4.5vw,3.2rem);margin-bottom:.8rem}#login p.lead{color:var(--mute);font-size:1.1rem;max-width:34ch;margin:0}
+.card{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--ver);border-radius:12px;padding:1.5rem;display:grid;gap:.9rem;box-shadow:0 24px 40px rgba(0,0,0,.4)}
+/* app */
+#app{display:none;grid-template-columns:230px 1fr;min-height:100vh}
+nav{background:var(--panel);border-right:1px solid var(--line);padding:1.2rem;display:flex;flex-direction:column;gap:.4rem}
+nav .brand{font-weight:700;font-size:1.1rem;margin-bottom:.9rem}nav .brand:before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--ver);margin-right:.6rem}
+nav button.t{background:transparent;color:var(--ink);text-align:left;border-left:3px solid transparent;border-radius:6px}
+nav button.t:hover{background:var(--panel2);transform:none}nav button.t[aria-current="true"]{background:var(--panel2);border-left-color:var(--ver)}
+.who{margin-top:auto;font-size:.9rem;color:var(--mute)}.who b{color:var(--ink)}
+.on{display:flex;align-items:center;gap:.4rem}.on:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--az)}
+main{padding:1.4rem;display:flex;flex-direction:column;gap:1rem;min-width:0;animation:rise .4s both}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}}
+#list{flex:1;min-height:320px;max-height:60vh;overflow:auto;display:flex;flex-direction:column;gap:.6rem}
+.msg{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:.6rem .9rem;max-width:70ch}
+.msg.me{align-self:flex-end;border-color:var(--az);background:var(--panel2)}.msg small{color:var(--mute)}
+.row{display:flex;gap:.6rem;flex-wrap:wrap}.row>input{flex:1;min-width:160px}
+.board{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.9rem}
+.note{padding:.9rem;border-radius:6px;color:var(--bg);font-weight:500;display:flex;flex-direction:column;gap:.6rem;min-height:120px;justify-content:space-between;transition:transform .2s}
+.note:hover{transform:translateY(-3px) rotate(-.6deg)}
+.note div{display:flex;justify-content:space-between;align-items:center;font-size:.9rem}
+.note button{padding:.25rem .6rem;background:var(--bg);color:var(--ink)}
+.files{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.8rem}
+.file{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:.7rem;word-break:break-word;transition:border-color .2s,transform .2s}
+.file:hover{border-color:var(--ver);transform:translateY(-2px)}.file img{width:100%;height:110px;object-fit:cover;border-radius:6px}
+video{width:100%;max-height:60vh;background:#000;border-radius:12px;border:1px solid var(--line)}
+.empty{color:var(--mute);padding:1rem;border:1px dashed var(--line);border-radius:10px}
+a{color:var(--az)}
+#toast{position:fixed;left:50%;bottom:1.2rem;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:.6rem 1rem;border-radius:8px;display:none;border-left:4px solid var(--ver)}
+.scr{height:110px;border-radius:8px;background:var(--panel2);position:relative;overflow:hidden}.scr:before{content:"";position:absolute;inset:10px 10px auto;height:10px;border-radius:4px;background:var(--line)}.scr:after{content:"";position:absolute;left:46%;top:48%;border:9px solid transparent;border-left:14px solid var(--ver);transform:rotate(-30deg)}
+.rs{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem}.rs .card{border-top-color:var(--az)}
+.big{font-size:2rem;font-weight:700;letter-spacing:.08em;font-variant-numeric:tabular-nums}
+.pill{display:inline-block;padding:.15rem .6rem;border-radius:99px;font-size:.8rem;font-weight:600;background:var(--panel2);border:1px solid var(--line);color:var(--mute)}.pill.up{border-color:var(--az);color:var(--az)}
+.dev{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:.9rem;display:grid;gap:.6rem}.dev b{font-size:1.05rem}
+.kan{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;align-items:start}
+.col{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:.8rem;display:grid;gap:.6rem}.col h3{font-size:1rem}
+.tk{background:var(--panel2);border-left:4px solid var(--az);border-radius:6px;padding:.6rem .7rem;display:grid;gap:.4rem}.tk.p3{border-left-color:var(--ver)}.tk.p2{border-left-color:#e9a23b}
+.rc{position:fixed;z-index:60;pointer-events:none;color:var(--bg);background:var(--ver);font-size:.75rem;font-weight:600;padding:.1rem .5rem;border-radius:4px;display:none}
+.ab{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:.9rem;padding:.7rem 1.4rem;background:var(--panel);border-bottom:1px solid var(--line)}
+.ab .brand{font-weight:700;font-size:1.05rem}.ab .brand:before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--ver);margin-right:.6rem}
+.ab .sp{flex:1}#peers{display:flex;gap:.9rem;color:var(--mute);font-size:.9rem}#me{display:flex;gap:.5rem;align-items:center;color:var(--mute);font-size:.9rem}#me b{color:var(--ink)}
+#ham{padding:.5rem .8rem;line-height:1}
+nav{position:fixed;top:0;left:0;bottom:0;width:min(340px,88vw);z-index:70;transform:translateX(-102%);transition:transform .3s cubic-bezier(.2,.8,.2,1);overflow:auto;gap:.2rem}
+nav.open{transform:none}
+.dh{display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem}.dh b{font-size:1.1rem}
+.sec{margin:1rem 0 .3rem;color:var(--mute);font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+nav button.t{display:grid;grid-template-columns:30px 1fr;gap:.7rem;align-items:center;padding:.7rem}
+nav button.t svg{color:var(--az)}nav button.t span{display:grid}nav button.t small{color:var(--mute);font-weight:400}
+#dscrim,#wscrim{position:fixed;inset:0;display:none;background:rgba(8,15,27,.78)}#dscrim{z-index:65}#wscrim{z-index:75}
+.hw{max-width:1080px;margin:0 auto;padding:2.5rem 6vw 4rem}.hw h1{font-size:clamp(2rem,4.5vw,3rem)}.sub{color:var(--mute);margin:.5rem 0 0}
+.hs{margin:2.2rem 0 1rem;font-size:.85rem;color:var(--az);letter-spacing:.14em;text-transform:uppercase}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem}
+.tile{display:grid;gap:.4rem;text-align:left;align-content:start;min-height:170px;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-top:4px solid var(--az);border-radius:14px;padding:1.2rem;transition:transform .15s,border-color .2s,background .2s;animation:rise .5s both}
+.tile:hover{background:var(--panel2);border-top-color:var(--ver)}
+.tile svg{color:var(--az);margin-bottom:.4rem}.tile b{font-size:1.15rem}.tile span{color:var(--mute);font-weight:400}.tile em{font-style:normal;margin-top:auto;font-size:.85rem;font-weight:600;color:var(--az)}
+.win{position:fixed;inset:5vh 6vw;z-index:80;background:var(--bg);border:1px solid var(--line);border-top:4px solid var(--ver);border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,.6);display:none;flex-direction:column;overflow:hidden}
+.win.show{display:flex;animation:pop .3s cubic-bezier(.2,.8,.2,1) both}.win.max{inset:0;border-radius:0}
+@keyframes pop{from{opacity:0;transform:translateY(24px) scale(.97)}}
+.wbar{display:flex;align-items:center;gap:.5rem;padding:.6rem .9rem;background:var(--panel);border-bottom:1px solid var(--line)}.wbar b{flex:1;font-size:1.05rem}.wbar button{padding:.3rem .7rem}
+.win main{flex:1;overflow:auto;animation:none}
+#app,#app button,#app input,#app select,#toast{font-family:Inter,system-ui,sans-serif}
+#app{grid-template-columns:minmax(0,1fr)}
+#bin{position:fixed;inset:0;width:100%;height:100%;z-index:-1}
+.ab{padding:.9rem 2.2rem;background:rgba(8,15,27,.82);backdrop-filter:blur(8px);border-bottom:1px solid rgba(32,51,80,.7);gap:1rem}
+.lg b{display:block;font-size:1.3rem;font-weight:600;letter-spacing:-.01em;line-height:1.1}.lg small{display:block;font-size:.58rem;letter-spacing:.26em;color:var(--mute);margin-top:.2rem}
+#pill{display:flex;gap:.15rem;padding:.3rem;border:1px solid var(--line);border-radius:10px;background:rgba(14,24,41,.7)}
+#pill button{background:transparent;color:var(--mute);font-size:.68rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;padding:.6rem .85rem;border-radius:7px}
+#pill button:hover{color:var(--ink);background:var(--panel2);transform:none}#pill button.act{background:var(--panel2);color:var(--ink)}
+.cta{background:transparent;color:var(--ver);border:1px solid var(--ver);border-radius:6px;font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;padding:.75rem 1.2rem}
+.cta:hover{background:var(--ver);color:var(--bg);transform:none}
+#ham{display:none}
+.hero2{min-height:calc(100vh - 86px);display:grid;grid-template-columns:1.05fr 1fr;align-items:center;gap:2rem;max-width:1320px;margin:0 auto;padding:2rem 5vw}
+.eyebrow2{color:var(--ver);font-weight:600;letter-spacing:.24em;font-size:.7rem;text-transform:uppercase;margin-bottom:1.6rem}
+#htitle{margin-bottom:1.4rem}.hp{color:var(--mute);font-size:1.1rem;max-width:36ch;margin:0}
+.hb{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.6rem}
+.hr{position:relative;width:100%;aspect-ratio:1600/1300}#hbrain{position:absolute;inset:0}
+.play{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);width:84px;height:84px;border-radius:50%;background:rgba(8,15,27,.6);border:1px solid var(--line);color:var(--ink);font-size:1.5rem;padding:0 0 0 .2rem}
+.play:hover{transform:translate(-50%,-50%) scale(1.06);background:var(--ver);color:var(--bg)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media(max-width:1100px){#pill{display:none}#ham{display:inline-flex}}
+@media(max-width:900px){.hero2{grid-template-columns:1fr}.ab{padding:.7rem 1rem}}
+@media(max-width:760px){.stage{grid-template-columns:1fr;grid-template-rows:auto 1fr;padding-top:5rem;gap:0}.scene{height:42vh;--sx:80px}#login{grid-template-columns:1fr}#app{grid-template-columns:1fr}.win{inset:0;border-radius:0}.ab .brand,#peers{display:none}}
+@media (prefers-reduced-motion:reduce){*,*::before{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+
+<div id="site">
+<div class="bar"></div>
+<header class="top"><span class="logo">Progressive Thinking</span><a href="#login">Join your team</a></header>
+<section id="hero"><div class="stage">
+<div class="copy"><div class="eyebrow">All-in-one workspace for remote teams and IT support</div><h1 id="hh">Capture every <em>idea</em></h1><p id="hp">Team chat keeps every spark in one place, with no email threads.</p></div>
+<div class="scene">
+<div class="pn" style="--i:0"><h4>Idea stream</h4><i class="b"></i><i class="b r"></i><i class="b"></i></div>
+<div class="pn" style="--i:1"><h4>Idea board</h4><div class="g"><i class="s"></i><i class="s"></i><i class="s"></i><i class="s"></i><i class="s"></i><i class="s"></i></div></div>
+<div class="pn" style="--i:2"><h4>Evidence</h4><i class="f"></i><i class="f" style="width:70%"></i><i class="f" style="width:85%"></i></div>
+<div class="pn" style="--i:3"><h4>Decision call</h4><div class="vid"></div></div>
+<div class="pn" style="--i:4"><h4>Remote support</h4><div class="scr"></div></div>
+</div><div class="hint">Scroll to explore. Click the background to drop an idea.</div></div></section>
+
+<section class="wrap"><h2 class="rv">Seven tools, <em>one</em> workspace</h2><div class="cards">
+<div class="fc rv" tabindex="0"><div class="fi"><div class="fr"><h3>Team chat</h3><p>Talk in real time</p></div><div class="bk"><p>Send messages and see who is online, so questions get answered fast.</p></div></div></div>
+<div class="fc rv" tabindex="0"><div class="fi"><div class="fr"><h3>Idea board</h3><p>Collect and rank ideas</p></div><div class="bk"><p>Add sticky notes and vote, and the best ideas rise to the top.</p></div></div></div>
+<div class="fc rv" tabindex="0"><div class="fi"><div class="fr"><h3>Shared files</h3><p>One place for evidence</p></div><div class="bk"><p>Upload a file once and everyone on the team can open it.</p></div></div></div>
+<div class="fc rv" tabindex="0"><div class="fi"><div class="fr"><h3>Video meeting</h3><p>Decide face to face</p></div><div class="bk"><p>Use your camera and microphone, and share your screen.</p></div></div></div>
+<div class="fc rv" tabindex="0"><div class="fi"><div class="fr"><h3>Remote support</h3><p>Fix any device</p></div><div class="bk"><p>Connect with a 9-digit ID and a PIN, view the screen, chat and send files.</p></div></div></div>
+<div class="fc rv" tabindex="0"><div class="fi"><div class="fr"><h3>Device manager</h3><p>Know every device</p></div><div class="bk"><p>Keep a list of laptops, servers and phones with their status, and connect in one click.</p></div></div></div>
+<div class="fc rv" tabindex="0"><div class="fi"><div class="fr"><h3>Helpdesk tickets</h3><p>Track every issue</p></div><div class="bk"><p>Log problems, set a priority and move tickets from open to resolved.</p></div></div></div>
+</div></section>
+
+<section class="wrap" style="padding-top:0"><h2 class="rv">From spark to <em>decision</em></h2><div class="tl" id="tl">
+<div class="ti"><h3>Spark</h3><p>Anyone can drop a rough idea into the chat or onto the board.</p></div>
+<div class="ti"><h3>Cluster</h3><p>Related ideas sit together so patterns show up quickly.</p></div>
+<div class="ti"><h3>Vote</h3><p>The team votes and the strongest ideas rise to the top.</p></div>
+<div class="ti"><h3>Decide</h3><p>Jump on a video call, agree the next step and move on.</p></div>
+</div></section>
+</div>
+
+<section id="login">
+  <div>
+    <h2>Start working <em>together</em></h2>
+    <p class="lead">Enter a team code to open your workspace. Share the same code with your team so they can join.</p>
+  </div>
+  <form class="card" id="lf">
+    <h3 style="font-size:1.5rem">Join your team</h3>
+    <label>Your name<input id="nm" required maxlength="24" autocomplete="name"></label>
+    <label>Team code<input id="tc" required maxlength="20" value="demo-team"></label>
+    <button class="ver">Enter workspace</button>
+    <small style="color:var(--mute)">Tip: open this page in a second tab with the same team code to watch updates appear live.</small>
+  </form>
+</section>
+
+<div id="app">
+  <canvas id="bin" aria-hidden="true"></canvas>
+  <header class="ab"><div class="lg"><b>Progressive Thinking</b><small>TEAM WORKSPACE</small></div><span class="sp"></span><div id="pill" role="navigation" aria-label="Tools"></div><span class="sp"></span><div id="peers"></div><div id="me"></div><button class="cta" id="out">Leave team</button><button class="alt" id="ham" aria-label="Open the tools menu" aria-expanded="false" aria-controls="drawer"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></header>
+  <div id="home"><section class="hero2" id="hero2"><div class="hl"><div class="eyebrow2">Remote teams · IT support · Ideas</div><h1 class="sr">Progressive Thinking</h1><div id="htitle" aria-hidden="true"></div><p class="hp">One workspace to brainstorm, share files, meet face to face and support every device.</p><div class="hb"><button class="ver" data-t="chat">Open team chat</button><button class="alt" data-t="remote">Start remote support</button></div></div><div class="hr"><div id="hbrain" aria-hidden="true"></div><button class="play" id="replay" aria-label="Replay the animation">&#9654;</button></div></section><div id="tools" class="hw"></div></div>
+  <nav id="drawer" aria-label="Tools"><div class="dh"><b>Tools</b><button class="alt" id="dclose" aria-label="Close the menu">×</button></div><div id="dlist"></div></nav>
+  <div id="dscrim"></div>
+  <div id="wscrim"></div>
+  <div id="win" class="win" role="dialog" aria-modal="true" aria-labelledby="wt"><div class="wbar"><b id="wt"></b><button class="alt" id="wmax" aria-label="Maximise window">□</button><button class="ver" id="wx" aria-label="Close window">×</button></div><main id="main"></main></div>
+</div>
+<div id="toast" role="status"></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let me='',team='',S={msgs:[],notes:[],files:[]},bc=null,tab='chat',peers={},stream=null,tick=null,t0=0,hb=null;
+const COLORS=['#329DD2','#FF4C2B','#e9eff7','#7cc3e6'];
+
+function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display='none',2800)}
+function load(){try{const d=JSON.parse(localStorage.getItem('indaba:'+team));if(d)S=Object.assign({msgs:[],notes:[],files:[],devs:[],tix:[]},d)}catch(e){}}
+function save(){try{localStorage.setItem('indaba:'+team,JSON.stringify(S))}catch(e){toast('Storage is full. Delete a file and try again.')}
+  bc&&bc.postMessage({t:'sync'});refresh();refresh2()}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+
+$('#lf').onsubmit=e=>{e.preventDefault();me=$('#nm').value.trim();team=$('#tc').value.trim().toLowerCase();start()};
+function start(){
+  S={msgs:[],notes:[],files:[],devs:[],tix:[]};load();
+  if(!S.msgs.length){S.msgs.push({id:uid(),by:'Progressive Thinking',txt:'Welcome to the team workspace. Say hello, add an idea to the board or share a file.',ts:Date.now()});try{localStorage.setItem('indaba:'+team,JSON.stringify(S))}catch(e){}}
+  $('#login').style.display='none';$('#site').style.display='none';scrollTo(0,0);$('#app').style.display='grid';$('#me').innerHTML='<div class="on"><b>'+esc(me)+'</b></div>Team: '+esc(team);
+  bc=new BroadcastChannel('indaba:'+team);
+  bc.onmessage=ev=>{const m=ev.data;
+    if(m.t==='sync'){load();refresh();refresh2()}
+    if(m.t==='hi'){peers[m.id]={n:m.n,s:Date.now()};drawPeers()}
+    if(m.t==='bye'){delete peers[m.id];drawPeers()}};
+  const id=uid(),beat=()=>{bc.postMessage({t:'hi',id,n:me});for(const k in peers)if(Date.now()-peers[k].s>9000)delete peers[k];drawPeers()};
+  beat();hb=setInterval(beat,3000);addEventListener('pagehide',()=>bc.postMessage({t:'bye',id}));
+  closeWin();drawStats();bgOn=false;$('#bg').style.display='none';binStart()}
+function drawPeers(){const n=Object.values(peers).map(p=>p.n);$('#peers').innerHTML=n.length?n.map(x=>'<div class="on">'+esc(x)+'</div>').join(''):''}
+$('#out').onclick=()=>{closeWin();stopCam();rsStop();binStop();bgOn=true;$('#bg').style.display='';frame();clearInterval(hb);bc&&bc.close();peers={};$('#app').style.display='none';$('#site').style.display='';$('#login').style.display='grid';scrollTo(0,0)};
+const SEC=['Collaborate','IT support'];
+const TOOLS=[
+ {k:'chat',s:0,n:'Team chat',d:'Talk in real time',i:'<path d="M4 5h16v11H9l-5 4z"/>'},
+ {k:'board',s:0,n:'Idea board',d:'Collect and vote on ideas',i:'<rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><path d="M14 17h6"/>'},
+ {k:'files',s:0,n:'Shared files',d:'One place for documents',i:'<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/>'},
+ {k:'meet',s:0,n:'Video meeting',d:'Meet face to face',i:'<rect x="3" y="6" width="12" height="12" rx="2"/><path d="M15 10l6-3v10l-6-3z"/>'},
+ {k:'remote',s:1,n:'Remote support',d:'View and help any screen',i:'<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/>'},
+ {k:'devices',s:1,n:'Device manager',d:'Track every device',i:'<rect x="3" y="5" width="18" height="6" rx="1"/><rect x="3" y="13" width="18" height="6" rx="1"/><path d="M7 8h.01M7 16h.01"/>'},
+ {k:'tickets',s:1,n:'Helpdesk tickets',d:'Track every issue',i:'<rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 10h8M8 14h5"/>'}];
+const svg=i=>'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+i+'</svg>';
+let lastTile=null;
+function buildMenus(){
+  $('#dlist').innerHTML=SEC.map((s,si)=>'<div class="sec">'+s+'</div>'+TOOLS.filter(t=>t.s===si).map(t=>'<button class="t" data-t="'+t.k+'">'+svg(t.i)+'<span><b>'+t.n+'</b><small>'+t.d+'</small></span></button>').join('')).join('');
+  const SH={chat:'Chat',board:'Board',files:'Files',meet:'Meet',remote:'Remote',devices:'Devices',tickets:'Tickets'};
+  $('#pill').innerHTML='<button class="act" data-h="1">Home</button>'+TOOLS.map(t=>'<button data-t="'+t.k+'">'+SH[t.k]+'</button>').join('');
+  $('#tools').innerHTML='<p class="sub">Pick a tool. It opens in its own window.</p>'+SEC.map((s,si)=>'<h2 class="hs">'+s+'</h2><div class="tiles">'+TOOLS.filter(t=>t.s===si).map((t,j)=>'<button class="tile" data-t="'+t.k+'" style="animation-delay:'+(j*70)+'ms">'+svg(t.i)+'<b>'+t.n+'</b><span>'+t.d+'</span><em id="st-'+t.k+'"></em></button>').join('')+'</div>').join('');
+  document.querySelectorAll('nav .t,.tile,#pill [data-t],.hb [data-t]').forEach(b=>b.onclick=()=>{lastTile=b;setTab(b.dataset.t)});
+  $('#pill [data-h]').onclick=()=>{closeWin();scrollTo({top:0,behavior:'smooth'})};
+  document.querySelectorAll('.tile').forEach(c=>{c.onpointermove=e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform='perspective(700px) rotateY('+x*10+'deg) rotateX('+-y*10+'deg) translateY(-4px)'};c.onpointerleave=()=>{c.style.transform=''}});
+  $('#ham').onclick=openDrawer;$('#dclose').onclick=closeDrawer;$('#dscrim').onclick=closeDrawer;$('#wx').onclick=closeWin;$('#wmax').onclick=()=>$('#win').classList.toggle('max');
+  addEventListener('keydown',e=>{if(e.key==='Escape'){if($('#win').classList.contains('show'))closeWin();else closeDrawer()}})}
+function pillSet(k){document.querySelectorAll('#pill button').forEach(b=>b.classList.toggle('act',k?b.dataset.t===k:!!b.dataset.h))}
+function drawStats(){const set=(k,t)=>{const e=$('#st-'+k);if(e)e.textContent=t};
+  set('chat',S.msgs.length+' messages');set('board',S.notes.length+' ideas');set('files',S.files.length+' files');set('meet','Camera and screen');set('remote','ID and PIN');
+  set('devices',S.devs.filter(d=>d.up).length+' of '+S.devs.length+' online');set('tickets',S.tix.filter(x=>x.s<2).length+' open')}
+function openWin(t){const tt=TOOLS.find(x=>x.k===t);$('#wt').textContent=tt.n;$('#win').classList.add('show');pillSet(t);$('#wscrim').style.display='block';closeDrawer();document.body.style.overflow='hidden';setTimeout(()=>$('#wx').focus(),60)}
+function closeWin(){if(tab==='meet')stopCam();if(tab==='remote')rsStop();tab='';pillSet('');$('#win').classList.remove('show','max');$('#wscrim').style.display='none';$('#main').innerHTML='';document.body.style.overflow='';document.querySelectorAll('nav .t').forEach(b=>b.removeAttribute('aria-current'));if(lastTile)lastTile.focus()}
+function openDrawer(){$('#drawer').classList.add('open');$('#dscrim').style.display='block';$('#ham').setAttribute('aria-expanded','true')}
+function closeDrawer(){$('#drawer').classList.remove('open');$('#dscrim').style.display='none';$('#ham').setAttribute('aria-expanded','false')}
+buildMenus();
+
+function setTab(t){if(tab==='meet'&&t!=='meet')stopCam();if(tab==='remote'&&t!=='remote')rsStop();tab=t;openWin(t);
+  document.querySelectorAll('nav .t').forEach(b=>b.setAttribute('aria-current',b.dataset.t===t));
+  const m=$('#main');
+  if(t==='chat')m.innerHTML='<h2>Team chat</h2><div id="list" aria-live="polite"></div><form class="row" id="cf"><input id="ci" placeholder="Write a message" required maxlength="500" autocomplete="off"><button class="ver">Send</button></form>';
+  if(t==='board')m.innerHTML='<h2>Idea board</h2><form class="row" id="bf"><input id="bi" placeholder="Add an idea" required maxlength="160"><select id="bc" aria-label="Note colour" style="width:auto"><option value="0">Azure</option><option value="1">Vermillion</option><option value="2">Cloud</option><option value="3">Sky</option></select><button class="ver">Add idea</button></form><div class="board" id="bd"></div>';
+  if(t==='files')m.innerHTML='<h2>Shared files</h2><div class="row"><input type="file" id="fi" multiple aria-label="Choose files to share"></div><small style="color:var(--mute)">Files up to 500 KB in this demo. The live version stores files on a server.</small><div class="files" id="fl"></div>';
+  if(t==='meet')m.innerHTML='<h2>Video meeting</h2><video id="vv" autoplay muted playsinline></video><div class="row"><button id="mstart" class="ver">Start camera</button><button class="alt" id="mmic" disabled>Mute mic</button><button class="alt" id="mcam" disabled>Camera off</button><button class="alt" id="mscr" disabled>Share screen</button><button class="alt" id="mend" disabled>Leave meeting</button><span id="mt" style="align-self:center;color:var(--mute)"></span></div><p style="color:var(--mute);margin:0">Your camera stays on your device. Team members join with the same team code.</p>';
+  if(t==='remote')m.innerHTML=remoteUI();
+  if(t==='devices')m.innerHTML='<h2>Device manager</h2><form class="row" id="df"><input id="dn" placeholder="Device name" required maxlength="30"><input id="do" placeholder="Owner" maxlength="24"><input id="di" placeholder="Device ID (9 digits, optional)" inputmode="numeric" maxlength="11"><select id="dt" aria-label="Device type" style="width:auto"><option>Laptop</option><option>Desktop</option><option>Server</option><option>Phone</option><option>Router</option></select><button class="ver">Add device</button><button type="button" class="alt" id="dsample">Add sample devices</button></form><div class="board" id="dl"></div>';
+  if(t==='tickets')m.innerHTML='<h2>Helpdesk tickets</h2><form class="row" id="tf"><input id="tt" placeholder="Describe the problem" required maxlength="120"><select id="tp" aria-label="Priority" style="width:auto"><option value="1">Low</option><option value="2">Medium</option><option value="3">Urgent</option></select><select id="td" aria-label="Device" style="width:auto"></select><button class="ver">Create ticket</button></form><div class="kan" id="kb"></div>';
+  bind();bind2();refresh();refresh2()}
+
+function bind(){
+  const cf=$('#cf');if(cf)cf.onsubmit=e=>{e.preventDefault();const v=$('#ci').value.trim();if(!v)return;S.msgs.push({id:uid(),by:me,txt:v,ts:Date.now()});S.msgs=S.msgs.slice(-200);$('#ci').value='';save()};
+  const bf=$('#bf');if(bf)bf.onsubmit=e=>{e.preventDefault();const v=$('#bi').value.trim();if(!v)return;S.notes.push({id:uid(),by:me,txt:v,c:+$('#bc').value,votes:[]});$('#bi').value='';save()};
+  const fi=$('#fi');if(fi)fi.onchange=()=>{[...fi.files].forEach(f=>{if(f.size>512000){toast(f.name+' is over 500 KB');return}
+    const r=new FileReader();r.onload=()=>{S.files.push({id:uid(),by:me,name:f.name,size:f.size,type:f.type,data:r.result});save();toast('Shared '+f.name)};r.readAsDataURL(f)});fi.value=''};
+  if($('#mstart')){$('#mstart').onclick=startCam;$('#mend').onclick=stopCam;$('#mmic').onclick=()=>tg('audio','#mmic','Mute mic','Unmute mic');$('#mcam').onclick=()=>tg('video','#mcam','Camera off','Camera on');$('#mscr').onclick=shareScreen}
+}
+function refresh(){
+  const l=$('#list');if(l){const stick=l.scrollTop+l.clientHeight>=l.scrollHeight-40;
+    l.innerHTML=S.msgs.map(m=>'<div class="msg'+(m.by===me?' me':'')+'"><small><b>'+esc(m.by)+'</b> '+new Date(m.ts).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})+'</small><div>'+esc(m.txt)+'</div></div>').join('');if(stick)l.scrollTop=l.scrollHeight}
+  const b=$('#bd');if(b){const n=[...S.notes].sort((a,c)=>c.votes.length-a.votes.length);
+    b.innerHTML=n.length?n.map(x=>'<div class="note" style="background:'+COLORS[x.c]+'"><span>'+esc(x.txt)+'</span><div><small>'+esc(x.by)+'</small><span><button data-v="'+x.id+'" aria-label="Vote for this idea">Vote '+x.votes.length+'</button> <button data-d="'+x.id+'" aria-label="Delete idea">×</button></span></div></div>').join(''):'<div class="empty">No ideas yet. Add the first one above.</div>';
+    b.querySelectorAll('[data-v]').forEach(k=>k.onclick=()=>{const x=S.notes.find(q=>q.id===k.dataset.v),i=x.votes.indexOf(me);i<0?x.votes.push(me):x.votes.splice(i,1);save()});
+    b.querySelectorAll('[data-d]').forEach(k=>k.onclick=()=>{S.notes=S.notes.filter(q=>q.id!==k.dataset.d);save()})}
+  const f=$('#fl');if(f){f.innerHTML=S.files.length?S.files.map(x=>'<div class="file">'+(x.type.startsWith('image/')?'<img alt="'+esc(x.name)+'" src="'+x.data+'">':'')+'<b>'+esc(x.name)+'</b><br><small>'+(x.size/1024).toFixed(1)+' KB · '+esc(x.by)+'</small><div class="row" style="margin-top:.5rem"><a href="'+x.data+'" download="'+esc(x.name)+'" target="_blank" rel="noopener">Open</a><button class="alt" data-x="'+x.id+'">Delete</button></div></div>').join(''):'<div class="empty">No files yet. Choose a file to share it with the team.</div>';
+    f.querySelectorAll('[data-x]').forEach(k=>k.onclick=()=>{S.files=S.files.filter(q=>q.id!==k.dataset.x);save()})}
+}
+async function startCam(){
+  try{stream=await navigator.mediaDevices.getUserMedia({video:true,audio:true})}catch(e){toast('Camera blocked. Allow camera and microphone access in your browser.');return}
+  $('#vv').srcObject=stream;['#mmic','#mcam','#mscr','#mend'].forEach(s=>$(s).disabled=false);$('#mstart').disabled=true;
+  t0=Date.now();tick=setInterval(()=>{const s=Math.floor((Date.now()-t0)/1000);$('#mt').textContent='In meeting '+String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')},1000)}
+function tg(kind,sel,a,b){if(!stream)return;const t=kind==='audio'?stream.getAudioTracks()[0]:stream.getVideoTracks()[0];if(!t)return;t.enabled=!t.enabled;$(sel).textContent=t.enabled?a:b}
+async function shareScreen(){try{const s=await navigator.mediaDevices.getDisplayMedia({video:true});$('#vv').srcObject=s;s.getVideoTracks()[0].onended=()=>{if(stream)$('#vv').srcObject=stream}}catch(e){toast('Screen sharing is not available here.')}}
+function stopCam(){if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}clearInterval(tick);if(tab==='meet'&&$('#vv')){$('#vv').srcObject=null;$('#mt').textContent='';['#mmic','#mcam','#mscr','#mend'].forEach(s=>$(s).disabled=true);$('#mstart').disabled=false}}
+
+/* ---- IT support: remote sessions, devices, tickets ---- */
+const rnd9=()=>String(Math.floor(1e8+Math.random()*9e8)),fmt9=s=>s.slice(0,3)+' '+s.slice(3,6)+' '+s.slice(6);
+let rsb=null,rhost=null,rview=null,rid='',rpin='',lastM=0;
+const rt=(sel,t)=>{const e=$(sel);if(e)e.textContent=t};
+function rlog(h){const l=$('#rlog');if(l){l.style.display='block';l.innerHTML+='<div>'+h+'</div>';l.scrollTop=l.scrollHeight}}
+function remoteUI(){return '<h2>Remote support</h2><div class="rs"><div class="card"><h3>Share my screen</h3><p style="margin:0;color:var(--mute)">Give this ID and PIN to the person who is helping you.</p><div class="row"><span><small>Your ID</small><div class="big" id="myid">--- --- ---</div></span><span><small>PIN</small><div class="big" id="mypin">----</div></span></div><div class="row"><button class="ver" id="rhost">Start sharing</button><button class="alt" id="rstop" disabled>Stop</button></div><div id="rstat" style="color:var(--mute)">Not sharing</div></div><div class="card"><h3>Connect to a device</h3><label>Partner ID<input id="cid" inputmode="numeric" maxlength="11" placeholder="123 456 789"></label><label>PIN<input id="cpin" inputmode="numeric" maxlength="4" placeholder="4 digits"></label><div class="row"><button class="ver" id="rcon">Connect</button><button class="alt" id="rdis" disabled>Disconnect</button></div><div id="vstat" style="color:var(--mute)">Not connected</div></div></div><video id="rv" autoplay playsinline muted style="display:none;cursor:crosshair"></video><div class="row" id="rtools" style="display:none"><input id="rci" placeholder="Message to the other side" maxlength="200"><button class="alt" id="rsend">Send</button><input type="file" id="rfile" aria-label="Send a file (up to 150 KB)" style="max-width:260px"></div><div id="rlog" class="msg" style="display:none;max-width:none;max-height:200px;overflow:auto"></div><small style="color:var(--mute)">Demo: the host and the viewer must be two tabs of the same browser. The full version uses a server and a desktop agent so it works between devices and can control the remote computer.</small>'}
+function rsInit(){if(rsb)return;rsb=new BroadcastChannel('indaba-rs');
+  if(!$('#rcur')){const c=document.createElement('div');c.id='rcur';c.className='rc';document.body.appendChild(c)}
+  rsb.onmessage=async ev=>{const m=ev.data;
+    if(m.t==='req'&&rhost&&m.id===rid){if(m.pin!==rpin){rsb.postMessage({t:'deny',to:'v'+m.v,why:'Wrong PIN.'});return}
+      if(rhost.pc){rsb.postMessage({t:'deny',to:'v'+m.v,why:'That device is busy.'});return}await hostPeer(m.v,m.n)}
+    else if(rhost&&rhost.pc&&m.to==='h'+rid){if(m.t==='answer'){await rhost.pc.setRemoteDescription(m.sdp);flush(rhost)}if(m.t==='ice')addIce(rhost,m.c);if(m.t==='bye')dropHost()}
+    else if(rview&&m.to==='v'+rview.v){if(m.t==='offer')await viewPeer(m);if(m.t==='ice')addIce(rview,m.c);if(m.t==='deny')viewReset(m.why);if(m.t==='bye')viewReset('The host ended the session.')}}}
+function addIce(o,c){if(o.pc&&o.pc.remoteDescription){o.pc.addIceCandidate(c).catch(()=>{})}else(o.q=o.q||[]).push(c)}
+function flush(o){(o.q||[]).forEach(c=>o.pc.addIceCandidate(c).catch(()=>{}));o.q=[]}
+async function hostPeer(vid,name){const pc=new RTCPeerConnection();rhost.pc=pc;rhost.v=vid;
+  rhost.stream.getTracks().forEach(t=>pc.addTrack(t,rhost.stream));
+  const dc=pc.createDataChannel('ctl');rhost.dc=dc;
+  dc.onopen=()=>{rt('#rstat','Connected to '+name);rlog('<b>'+esc(name)+'</b> connected and can see your screen.');dc.send(JSON.stringify({t:'chat',n:me,x:'Hi, I am here to help.'}))};
+  dc.onmessage=e=>onCtl(e.data,true);
+  pc.onicecandidate=e=>e.candidate&&rsb.postMessage({t:'ice',to:'v'+vid,c:e.candidate.toJSON()});
+  pc.onconnectionstatechange=()=>{if(['failed','closed','disconnected'].includes(pc.connectionState))dropHost()};
+  const o=await pc.createOffer();await pc.setLocalDescription(o);
+  rsb.postMessage({t:'offer',to:'v'+vid,from:rid,sdp:{type:o.type,sdp:o.sdp}})}
+function dropHost(){if(!rhost||!rhost.pc)return;try{rhost.pc.close()}catch(e){}rhost.pc=null;rhost.dc=null;rt('#rstat','Waiting for a partner. ID '+fmt9(rid));rlog('Session ended.');const c=$('#rcur');if(c)c.style.display='none'}
+async function viewPeer(m){const pc=new RTCPeerConnection();rview.pc=pc;rview.h=m.from;
+  pc.ontrack=e=>{const v=$('#rv');if(v){v.srcObject=e.streams[0];v.style.display='block';$('#rtools').style.display='flex'}};
+  pc.ondatachannel=e=>{rview.dc=e.channel;e.channel.onopen=()=>rt('#vstat','Connected. Move and click on the screen to point at things.');e.channel.onmessage=ev=>onCtl(ev.data,false)};
+  pc.onicecandidate=e=>e.candidate&&rsb.postMessage({t:'ice',to:'h'+m.from,c:e.candidate.toJSON()});
+  pc.onconnectionstatechange=()=>{if(['failed','closed','disconnected'].includes(pc.connectionState))viewReset('Connection closed.')};
+  await pc.setRemoteDescription(m.sdp);flush(rview);const a=await pc.createAnswer();await pc.setLocalDescription(a);
+  rsb.postMessage({t:'answer',to:'h'+m.from,sdp:{type:a.type,sdp:a.sdp}})}
+function viewReset(msg){if(rview){clearTimeout(rview.to);if(rview.pc){try{rview.pc.close()}catch(e){}}rview=null}
+  const v=$('#rv');if(v){v.srcObject=null;v.style.display='none'}const tl2=$('#rtools');if(tl2)tl2.style.display='none';const d=$('#rdis');if(d)d.disabled=true;rt('#vstat',msg||'Not connected')}
+function rsStop(){if(rview){if(rview.h&&rsb)rsb.postMessage({t:'bye',to:'h'+rview.h});viewReset()}
+  if(rhost){if(rhost.pc&&rsb)rsb.postMessage({t:'bye',to:'v'+rhost.v});try{rhost.pc&&rhost.pc.close()}catch(e){}rhost.stream.getTracks().forEach(t=>t.stop());rhost=null;rid='';
+    rt('#myid','--- --- ---');rt('#mypin','----');rt('#rstat','Not sharing');const a=$('#rhost'),b=$('#rstop');if(a)a.disabled=false;if(b)b.disabled=true;const c=$('#rcur');if(c)c.style.display='none'}}
+function onCtl(raw,host){let m;try{m=JSON.parse(raw)}catch(e){return}
+  if(m.t==='chat')rlog('<b>'+esc(m.n)+'</b>: '+esc(m.x));
+  if(m.t==='file'&&String(m.d).startsWith('data:'))rlog('<b>'+esc(m.n)+'</b> sent <a href="'+m.d+'" download="'+esc(m.f)+'" target="_blank" rel="noopener">'+esc(m.f)+'</a>');
+  if((m.t==='m'||m.t==='c')&&host){const c=$('#rcur');if(!c)return;c.style.display='block';c.textContent=m.n+(m.t==='c'?' clicked':'');c.style.left=m.x*innerWidth+'px';c.style.top=m.y*innerHeight+'px';c.style.background=m.t==='c'?'#329DD2':'';if(m.t==='c'){clearTimeout(c.h);c.h=setTimeout(()=>{c.style.background=''},400)}}}
+function bind2(){
+  if($('#rhost')){rsInit();
+    $('#rhost').onclick=async()=>{try{const st=await navigator.mediaDevices.getDisplayMedia({video:true});rid=rnd9();rpin=String(1000+Math.floor(Math.random()*9000));rhost={stream:st};st.getVideoTracks()[0].onended=rsStop;
+      rt('#myid',fmt9(rid));rt('#mypin',rpin);rt('#rstat','Waiting for a partner. Share the ID and PIN.');$('#rhost').disabled=true;$('#rstop').disabled=false;$('#rlog').style.display='block'}catch(e){toast('Screen sharing was cancelled or is not available here.')}};
+    $('#rstop').onclick=rsStop;
+    $('#rcon').onclick=()=>{const id=$('#cid').value.split(' ').join(''),pin=$('#cpin').value.trim();if(id.length!==9||pin.length!==4){toast('Enter the 9-digit ID and the 4-digit PIN.');return}
+      viewReset();rview={v:uid()};rt('#vstat','Connecting...');$('#rdis').disabled=false;rsb.postMessage({t:'req',id,pin,v:rview.v,n:me});
+      rview.to=setTimeout(()=>{if(rview&&!rview.pc)viewReset('No device found. The host must be sharing in another tab of this browser.')},8000)};
+    $('#rdis').onclick=rsStop;
+    const v=$('#rv');v.onmousemove=e=>{const t=Date.now();if(t-lastM<40||!rview||!rview.dc||rview.dc.readyState!=='open')return;lastM=t;const r=v.getBoundingClientRect();rview.dc.send(JSON.stringify({t:'m',x:(e.clientX-r.left)/r.width,y:(e.clientY-r.top)/r.height,n:me}))};
+    v.onclick=e=>{if(!rview||!rview.dc||rview.dc.readyState!=='open')return;const r=v.getBoundingClientRect();rview.dc.send(JSON.stringify({t:'c',x:(e.clientX-r.left)/r.width,y:(e.clientY-r.top)/r.height,n:me}))};
+    const dcs=()=>(rhost&&rhost.dc)||(rview&&rview.dc);
+    const sendChat=()=>{const i=$('#rci'),d=dcs();if(!i.value.trim()||!d||d.readyState!=='open')return;d.send(JSON.stringify({t:'chat',n:me,x:i.value.trim()}));rlog('<b>You</b>: '+esc(i.value.trim()));i.value=''};
+    $('#rsend').onclick=sendChat;$('#rci').onkeydown=e=>{if(e.key==='Enter')sendChat()};
+    $('#rfile').onchange=e=>{const f=e.target.files[0],d=dcs();if(!f)return;if(!d||d.readyState!=='open'){toast('Connect first.');return}if(f.size>153600){toast('Files must be under 150 KB.');return}
+      const r=new FileReader();r.onload=()=>{d.send(JSON.stringify({t:'file',n:me,f:f.name,d:r.result}));rlog('<b>You</b> sent '+esc(f.name))};r.readAsDataURL(f);e.target.value=''}}
+  const df=$('#df');if(df){df.onsubmit=e=>{e.preventDefault();const n=$('#dn').value.trim();if(!n)return;const id=$('#di').value.split(' ').join('');
+    S.devs.push({id:id.length===9?id:rnd9(),n,o:$('#do').value.trim(),t:$('#dt').value,up:true});$('#dn').value=$('#do').value=$('#di').value='';save()};
+    $('#dsample').onclick=()=>{[['Reception laptop','Laptop','Thandi',1],['Office server','Server','IT team',1],['Sales desktop','Desktop','Sipho',1],['Site router','Router','IT team',0]].forEach(x=>S.devs.push({id:rnd9(),n:x[0],t:x[1],o:x[2],up:!!x[3]}));save()}}
+  const tf=$('#tf');if(tf)tf.onsubmit=e=>{e.preventDefault();const v=$('#tt').value.trim();if(!v)return;S.tix.push({id:uid(),t:v,p:+$('#tp').value,d:$('#td').value,s:0,by:me});$('#tt').value='';save()};
+}
+function refresh2(){
+  drawStats();const dl=$('#dl');if(dl){dl.innerHTML=S.devs.length?S.devs.map(x=>'<div class="dev"><div class="row" style="justify-content:space-between"><b>'+esc(x.n)+'</b><span class="pill'+(x.up?' up':'')+'">'+(x.up?'Online':'Offline')+'</span></div><small style="color:var(--mute)">'+esc(x.t)+' · '+esc(x.o||'Unassigned')+' · ID '+fmt9(x.id)+'</small><div class="row"><button data-c="'+x.id+'"'+(x.up?'':' disabled')+'>Connect</button><button class="alt" data-u="'+x.id+'">'+(x.up?'Set offline':'Set online')+'</button><button class="alt" data-r="'+x.id+'" aria-label="Remove device">×</button></div></div>').join(''):'<div class="empty">No devices yet. Add one, or use the sample devices.</div>';
+    dl.querySelectorAll('[data-c]').forEach(k=>k.onclick=()=>{setTab('remote');const i=$('#cid');if(i)i.value=fmt9(k.dataset.c);toast('Device ID entered. Ask the user for their PIN.')});
+    dl.querySelectorAll('[data-u]').forEach(k=>k.onclick=()=>{const x=S.devs.find(q=>q.id===k.dataset.u);x.up=!x.up;save()});
+    dl.querySelectorAll('[data-r]').forEach(k=>k.onclick=()=>{S.devs=S.devs.filter(q=>q.id!==k.dataset.r);save()})}
+  const kb=$('#kb');if(kb){const td=$('#td');if(td){const cur=td.value;td.innerHTML='<option value="">No device</option>'+S.devs.map(d=>'<option>'+esc(d.n)+'</option>').join('');td.value=cur}
+    kb.innerHTML=[['Open',0],['In progress',1],['Resolved',2]].map(c=>{const l=S.tix.filter(x=>x.s===c[1]);return '<div class="col"><h3>'+c[0]+' ('+l.length+')</h3>'+l.map(x=>'<div class="tk p'+x.p+'"><span>'+esc(x.t)+'</span><small style="color:var(--mute)">'+['','Low','Medium','Urgent'][x.p]+(x.d?' · '+esc(x.d):'')+' · '+esc(x.by)+'</small><div class="row">'+(c[1]>0?'<button class="alt" data-m="'+x.id+'" data-dir="-1" aria-label="Move back">←</button>':'')+(c[1]<2?'<button class="alt" data-m="'+x.id+'" data-dir="1" aria-label="Move forward">→</button>':'')+'<button class="alt" data-k="'+x.id+'" aria-label="Delete ticket">×</button></div></div>').join('')+'</div>'}).join('');
+    kb.querySelectorAll('[data-m]').forEach(k=>k.onclick=()=>{const x=S.tix.find(q=>q.id===k.dataset.m);x.s=Math.min(2,Math.max(0,x.s+Number(k.dataset.dir)));save()});
+    kb.querySelectorAll('[data-k]').forEach(k=>k.onclick=()=>{S.tix=S.tix.filter(q=>q.id!==k.dataset.k);save()})}
+}
+
+/* ---- workspace scene: binary brain and emitted title ---- */
+const bn=$('#bin'),bq=bn.getContext('2d'),BCOL=['#e9eff7','#329DD2','#FF4C2B'],AMB=[],bstill=matchMedia('(prefers-reduced-motion:reduce)').matches;
+let bnOn=false,bnT0=0,BR=[],TP=[[],[],[]],TPA=[],tw=0,th=0,bstep=8,bnm={x:-999,y:-999},bnW=0,bnH=0;
+const inBr=(x,y)=>[[760,480,600,400],[520,430,330,330],[1050,500,380,340],[640,770,330,170],[1180,830,200,150]].some(e=>((x-e[0])/e[2])**2+((y-e[1])/e[3])**2<=1)||(x>=900&&x<=1010&&y>=800&&y<=1180);
+const sgd=(x,y,a,b,c,d)=>{const dx=c-a,dy=d-b,t=Math.max(0,Math.min(1,((x-a)*dx+(y-b)*dy)/(dx*dx+dy*dy)));return Math.hypot(x-a-t*dx,y-b-t*dy)};
+function buildBrain(){BR=[];const g=50;for(let r=0,y=40;y<1260;y+=g,r++)for(let x=40+(r%2)*25;x<1580;x+=g)if(inBr(x,y)&&sgd(x,y,470,650,900,520)>30&&sgd(x,y,930,745,1340,700)>28&&(!(inBr(x-g,y)&&inBr(x+g,y)&&inBr(x,y-g)&&inBr(x,y+g))||Math.abs(Math.sin(x*.016+Math.sin(y*.012)*3.2))>.2))BR.push({x,y,ch:Math.random()<.5?'0':'1',ph:Math.random()*6.28,hot:Math.random()<.07,edge:!(inBr(x-g,y)&&inBr(x+g,y)&&inBr(x,y-g)&&inBr(x,y+g))})}
+function buildTitle(){const el=$('#htitle'),colW=el.parentElement.clientWidth,L=['Progressive','Thinking'],c=document.createElement('canvas'),q=c.getContext('2d');
+  q.font='700 100px Inter,system-ui,sans-serif';const fs=Math.round(Math.min(124,colW*.98*100/q.measureText(L[0]).width)),F='700 '+fs+'px Inter,system-ui,sans-serif';
+  q.font=F;tw=Math.ceil(Math.max(...L.map(s=>q.measureText(s).width)))+10;th=Math.ceil(fs*2.1);c.width=tw;c.height=th;q.font=F;q.textBaseline='top';q.fillStyle='#fff';q.strokeStyle='#fff';q.lineWidth=fs*.04;L.forEach((s,i)=>{q.fillText(s,0,i*fs);q.strokeText(s,0,i*fs)});
+  const d=q.getImageData(0,0,tw,th).data;bstep=Math.max(4,Math.round(fs/22));const arr=[];
+  for(let y=0;y<th;y+=bstep)for(let x=0;x<tw;x+=bstep)if(d[(y*tw+x)*4+3]>128)arr.push({tx:x,ty:y,x:0,y:0,vx:0,vy:0,ch:Math.random()<.5?'0':'1',on:false,snap:false,dl:0,ci:Math.random()<.05?2:Math.random()<.25?1:0});
+  arr.sort((a,b)=>a.tx-b.tx||a.ty-b.ty);arr.forEach((p,i)=>{p.dl=i/arr.length*1800+Math.random()*300});
+  TPA=arr;TP=[[],[],[]];arr.forEach(p=>TP[p.ci].push(p));el.style.width=tw+'px';el.style.height=th+'px'}
+function binSize(){const d=devicePixelRatio||1;bnW=innerWidth;bnH=innerHeight;bn.width=bnW*d;bn.height=bnH*d;bq.setTransform(d,0,0,d,0,0);
+  if(!AMB.length)for(let i=0;i<Math.round(bnW*bnH/16000);i++)AMB.push({x:Math.random()*bnW,y:Math.random()*bnH,v:.15+Math.random()*.35,ch:Math.random()<.5?'0':'1',s:10+Math.random()*6,a:.07+Math.random()*.13});
+  buildTitle()}
+function emit(){bnT0=0;TPA.forEach(p=>{p.on=false;p.snap=false})}
+function settle(){TPA.forEach(p=>{p.on=true;p.snap=true})}
+function binDraw(t){const q=bq,hr=$('#hero2').getBoundingClientRect(),tr=$('#htitle').getBoundingClientRect(),br=$('#hbrain').getBoundingClientRect();
+  q.clearRect(0,0,bnW,bnH);
+  const bs=br.width/1600,bx=br.left-hr.left,by=br.top-hr.top,ox=tr.left-hr.left,oy=tr.top-hr.top,mx=bnm.x-hr.left,my=bnm.y-hr.top;
+  q.textAlign='center';q.textBaseline='middle';q.fillStyle=BCOL[1];
+  AMB.forEach(a=>{if(!bstill){a.y-=a.v;if(a.y<-20){a.y=bnH+20;a.x=Math.random()*bnW}if(Math.random()<.004)a.ch=a.ch==='0'?'1':'0'}q.globalAlpha=a.a;q.font='500 '+a.s+'px Inter,sans-serif';q.fillText(a.ch,a.x,a.y)});
+  q.font='600 '+Math.max(9,bs*34)+'px Inter,sans-serif';
+  [false,true].forEach(hot=>{q.fillStyle=hot?BCOL[2]:BCOL[1];BR.forEach(d=>{if(d.hot!==hot)return;
+    let x=hr.left+bx+d.x*bs+Math.sin(t*.0008+d.ph)*3,y=hr.top+by+d.y*bs+Math.cos(t*.0007+d.ph)*3;
+    const dx=x-bnm.x,dy=y-bnm.y,dd=Math.hypot(dx,dy);if(dd<90&&dd>0){x+=dx/dd*(90-dd)*.3;y+=dy/dd*(90-dd)*.3}
+    if(!bstill&&Math.random()<.0015)d.ch=d.ch==='0'?'1':'0';
+    const w=Math.max(0,Math.sin((d.x+d.y)*.004-t*.0015)),a=Math.min(1,(d.edge?.8:.25+.45*Math.abs(Math.sin(d.x*.012+Math.sin(d.y*.01)*2)))+w*w*.5);
+    q.globalAlpha=hot?Math.max(a,.8):a;q.fillText(d.ch,x,y)})});
+  q.font='700 '+Math.max(7,bstep*1.35)+'px Inter,sans-serif';
+  TP.forEach((grp,ci)=>{q.fillStyle=BCOL[ci];q.globalAlpha=1;grp.forEach(p=>{const gx=ox+p.tx,gy=oy+p.ty;
+    if(!p.on){if(t>=p.dl){p.on=true;const d=BR[Math.random()*BR.length|0];p.x=bx+d.x*bs;p.y=by+d.y*bs;p.vx=-3-Math.random()*5;p.vy=(Math.random()-.5)*6}else return}
+    if(p.snap){p.x=gx;p.y=gy;p.vx=p.vy=0;p.snap=false}
+    if(!bstill){p.vx+=(gx-p.x)*.018;p.vy+=(gy-p.y)*.018;const dx=p.x-mx,dy=p.y-my,dd=Math.hypot(dx,dy);if(dd<80&&dd>0){p.vx+=dx/dd*(80-dd)*.04;p.vy+=dy/dd*(80-dd)*.04}p.vx*=.84;p.vy*=.84;p.x+=p.vx;p.y+=p.vy;if(Math.random()<.003)p.ch=p.ch==='0'?'1':'0'}
+    q.fillText(p.ch,hr.left+p.x,hr.top+p.y)})});
+  q.globalAlpha=1}
+function binLoop(ts){if(!bnOn)return;if(!bnT0)bnT0=ts;binDraw(ts-bnT0);if(!bstill)requestAnimationFrame(binLoop)}
+function binStart(){bnOn=true;buildBrain();(document.fonts?document.fonts.load('700 100px Inter'):Promise.resolve()).catch(()=>{}).then(()=>{if(!bnOn)return;binSize();if(bstill)settle();else emit();requestAnimationFrame(binLoop)})}
+function binStop(){bnOn=false}
+addEventListener('resize',()=>{if(bnOn){binSize();settle();if(bstill)binDraw(0)}});
+addEventListener('mousemove',e=>{bnm.x=e.clientX;bnm.y=e.clientY});
+if(bstill)addEventListener('scroll',()=>{if(bnOn)binDraw(0)},{passive:true});
+$('#replay').onclick=()=>{if(!bstill)emit()};
+
+/* ---- landing: scroll scene ---- */
+const hero=$('#hero'),root=document.documentElement,tl=$('#tl');
+const ST=[['Capture every <em>idea</em>','Team chat keeps every spark in one place, with no email threads.'],['Cluster and <em>vote</em>','Pin ideas to a shared board and let the team vote on the best ones.'],['Back it with <em>evidence</em>','Drop in a file and everyone on the team can open it.'],['Decide face to <em>face</em>','Start a video meeting with camera, microphone and screen sharing.'],['Support any device <em>remotely</em>','Connect with an ID and a PIN, see the screen and fix problems in real time.']];let last=-1,sy=0;
+function onScroll(){sy=scrollY;if(!hero.offsetHeight)return;
+  const r=hero.getBoundingClientRect(),h=hero.offsetHeight-innerHeight,p=Math.min(1,Math.max(0,-r.top/h));hero.style.setProperty('--p',p);
+  root.style.setProperty('--sp',scrollY/Math.max(1,document.body.scrollHeight-innerHeight));
+  const t=tl.getBoundingClientRect();tl.style.setProperty('--tl',Math.min(1,Math.max(0,(innerHeight*.65-t.top)/t.height)));
+  const i=Math.min(4,Math.floor(p*5));if(i!==last){last=i;const c=$('.copy');c.classList.add('sw');setTimeout(()=>{$('#hh').innerHTML=ST[i][0];$('#hp').textContent=ST[i][1];c.classList.remove('sw')},200);document.querySelectorAll('.pn').forEach((x,k)=>x.classList.toggle('on',k===i))}}
+addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);onScroll();
+const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('in')),{threshold:.3});document.querySelectorAll('.rv,.ti').forEach(x=>io.observe(x));
+document.querySelectorAll('.fc').forEach(c=>c.onclick=()=>c.classList.toggle('flip'));
+
+/* ---- background: idea network ---- */
+const cv=$('#bg'),cx=cv.getContext('2d'),WORDS=['Idea','Pitch','Users','Prototype','Budget','Launch','Pivot','Feedback','Risk','Vote','Goal','Plan','Brand','Pricing','Demo','Team'],N=[],R=[],M={x:-999,y:-999},still=matchMedia('(prefers-reduced-motion:reduce)').matches;let W=0,H=0;
+function mk(x,y,hot){return{x,y,vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28,z:.3+Math.random()*.7,r:hot?6:2+Math.random()*3,hot:!!hot,w:WORDS[Math.random()*WORDS.length|0]}}
+function size(){const d=devicePixelRatio||1;W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;cx.setTransform(d,0,0,d,0,0);const want=Math.min(54,Math.round(W*H/26000));while(N.length<want)N.push(mk(Math.random()*W,Math.random()*H,Math.random()<.14));if(still)frame()}
+function frame(){cx.clearRect(0,0,W,H);
+  const P=N.map(n=>{if(!still){n.x+=n.vx;n.y+=n.vy}if(n.x<-20)n.x=W+20;if(n.x>W+20)n.x=-20;if(n.y<-20)n.y=H+20;if(n.y>H+20)n.y=-20;
+    const dx=n.x-M.x,dy=n.y-M.y,d=Math.hypot(dx,dy);if(d<140&&d>0){n.x+=dx/d*(140-d)*.012;n.y+=dy/d*(140-d)*.012}
+    let py=(n.y-sy*n.z*.25)%H;if(py<0)py+=H;return{n,x:n.x,y:py}});
+  cx.lineWidth=1;
+  for(let i=0;i<P.length;i++){for(let j=i+1;j<P.length;j++){const a=P[i],b=P[j],d=Math.hypot(a.x-b.x,a.y-b.y);if(d<150){cx.strokeStyle='rgba(50,157,210,'+(.28*(1-d/150))+')';cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(b.x,b.y);cx.stroke()}}
+    const m=Math.hypot(P[i].x-M.x,P[i].y-M.y);if(m<200){cx.strokeStyle='rgba(255,76,43,'+(.5*(1-m/200))+')';cx.beginPath();cx.moveTo(P[i].x,P[i].y);cx.lineTo(M.x,M.y);cx.stroke()}}
+  cx.font='500 11px Inter,sans-serif';
+  P.forEach(({n,x,y})=>{cx.fillStyle=n.hot?'#FF4C2B':'rgba(50,157,210,'+(.35+n.z*.45)+')';cx.beginPath();cx.arc(x,y,n.r,0,7);cx.fill();if(n.hot||n.r>4){cx.fillStyle=n.hot?'rgba(233,239,247,.9)':'rgba(143,162,186,.75)';cx.fillText(n.w,x+n.r+5,y+4)}});
+  R.forEach(r=>{r.t++;const k=r.t/50;cx.strokeStyle='rgba(255,76,43,'+(.8*(1-k))+')';cx.beginPath();cx.arc(r.x,r.y,8+k*60,0,7);cx.stroke()});
+  for(let i=R.length-1;i>=0;i--)if(R[i].t>50)R.splice(i,1);
+  if(!still&&bgOn)requestAnimationFrame(frame)}
+let bgOn=true;addEventListener('resize',size);size();if(!still)frame();
+addEventListener('mousemove',e=>{M.x=e.clientX;M.y=e.clientY;hero.style.setProperty('--mx',(e.clientX/innerWidth-.5)*2);hero.style.setProperty('--my',(e.clientY/innerHeight-.5)*2)});
+addEventListener('click',e=>{if(e.target.closest('button,a,input,select,label,.card,.pn,.fc,.msg,.note,.file,video,nav'))return;
+  const n=mk(e.clientX,0,true);n.y=e.clientY+sy*n.z*.25;n.vx=n.vy=0;N.push(n);if(N.length>90)N.shift();R.push({x:e.clientX,y:e.clientY,t:0});if(still)frame()});
+</script>
+</body>
+</html>
